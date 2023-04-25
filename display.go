@@ -12,17 +12,20 @@ const (
 )
 
 func LoginPrompt() string {
-	// Get the terminal size
-	size, _ := term.GetSize(0)
-	rows, cols := size.Height, size.Width
+    // Get the terminal size
+    size, err := term.GetSize(0)
+    if err != nil {
+        panic(err)
+    }
+    rows, cols := size.Height, size.Width
 
-	// Calculate the center position
-	x := (cols - len("Please log in:")) / 2
-	y := rows / 2
+    // Calculate the center position
+    x := (cols - len("Please log in:")) / 2
+    y := rows / 2
 
-	// Create the login prompt
-	loginPrompt := fmt.Sprintf("%s\033[%d;%dH%s%sUsername: %s%s",
-		ansiClearScreen, y, x, ansiCyan, ansiResetColor, ansiCyan, ansiResetColor)
+    // Create the login prompt
+    loginPrompt := fmt.Sprintf("%s\033[%d;%dH%s%sUsername: %s%s",
+        ansiClearScreen, y, x, ansiCyan, ansiResetColor, ansiCyan, ansiResetColor)
 
-	return loginPrompt
+    return loginPrompt
 }
